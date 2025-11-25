@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: dargohbook_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dargohbook
+      POSTGRES_PASSWORD: dargohbook_secret_2024
+      POSTGRES_DB: dargohbook
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dargohbook -d dargohbook"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js Application
+  # app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dargohbook_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=dargohbook
+      - DB_PASSWORD=dargohbook_secret_2024
+      - DB_NAME=dargohbook
+      - BILLZ_API_URL=https://dargox.billz.io/api/v2
+      - BILLZ_PLATFORM_ID=7d4a4c38-dd84-4902-b744-0488b80a4c01
+      - BILLZ_PHONE=+998951590102
+      - BILLZ_PASSWORD=sardor0102
+      - SYNC_INTERVAL=30
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
