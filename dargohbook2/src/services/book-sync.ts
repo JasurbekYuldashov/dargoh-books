@@ -12,11 +12,11 @@ function mapBillzProductToBook(product: BillzProduct): Partial<BookEntity> {
 
   return {
     externalId: product.id,
-    name: product.name,
-    sku: product.sku,
+    name: product.name || 'Nomsiz kitob',
+    sku: product.sku || '',
     barcode: product.barcode || '',
-    retailPrice: product.retail_price,
-    supplyPrice: product.supply_price,
+    retailPrice: product.retail_price || 0,
+    supplyPrice: product.supply_price || 0,
     description: stripHtml(product.description || ''),
     quantity,
     supplierName,

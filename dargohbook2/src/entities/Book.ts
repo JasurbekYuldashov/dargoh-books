@@ -26,10 +26,10 @@ export class BookEntity {
   @Column({ nullable: true })
   barcode!: string;
 
-  @Column({ name: 'retail_price', type: 'decimal', precision: 12, scale: 2 })
+  @Column({ name: 'retail_price', type: 'decimal', precision: 12, scale: 2, default: 0 })
   retailPrice!: number;
 
-  @Column({ name: 'supply_price', type: 'decimal', precision: 12, scale: 2 })
+  @Column({ name: 'supply_price', type: 'decimal', precision: 12, scale: 2, default: 0 })
   supplyPrice!: number;
 
   @Column({ type: 'text', nullable: true })

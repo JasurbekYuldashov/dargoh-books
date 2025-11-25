@@ -49,39 +49,54 @@ export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFilt
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Qidiruv */}
         <div className="flex-1">
-          <div className="relative">
+          <div style={{ position: 'relative' }}>
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-              style={{ color: '#9ca3af' }}
+              style={{
+                position: 'absolute',
+                left: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '20px',
+                height: '20px',
+                color: '#9ca3af',
+                pointerEvents: 'none'
+              }}
             />
             <input
               type="text"
               placeholder="Kitob nomi, barcode yoki SKU bo'yicha qidiring..."
               value={filters.search || ''}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="input pl-10"
               style={{
+                width: '100%',
+                padding: '10px 16px 10px 44px',
                 backgroundColor: 'white',
                 color: '#111827',
-                border: '1px solid #d1d5db'
+                border: '1px solid #d1d5db',
+                borderRadius: '8px',
+                fontSize: '14px',
+                outline: 'none'
               }}
             />
           </div>
         </div>
 
         {/* Narx filtri */}
-        <div className="flex items-center gap-2">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <input
             type="number"
             placeholder="Min narx"
             value={filters.minPrice || ''}
             onChange={(e) => handleMinPriceChange(e.target.value)}
-            className="input"
             style={{
-              width: '7rem',
+              width: '110px',
+              padding: '10px 12px',
               backgroundColor: 'white',
               color: '#111827',
-              border: '1px solid #d1d5db'
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              outline: 'none'
             }}
             min={0}
           />
@@ -91,25 +106,27 @@ export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFilt
             placeholder="Max narx"
             value={filters.maxPrice || ''}
             onChange={(e) => handleMaxPriceChange(e.target.value)}
-            className="input"
             style={{
-              width: '7rem',
+              width: '110px',
+              padding: '10px 12px',
               backgroundColor: 'white',
               color: '#111827',
-              border: '1px solid #d1d5db'
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              outline: 'none'
             }}
             max={maxPriceLimit}
           />
         </div>
 
         {/* Mavjudlik filtri */}
-        <label className="flex items-center gap-2 cursor-pointer whitespace-nowrap">
+        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
           <input
             type="checkbox"
             checked={filters.inStock || false}
             onChange={(e) => handleInStockChange(e.target.checked)}
-            className="w-4 h-4 rounded"
-            style={{ accentColor: '#0284c7' }}
+            style={{ width: '16px', height: '16px', accentColor: '#0284c7' }}
           />
           <span style={{ color: '#374151' }}>Faqat mavjudlari</span>
         </label>
@@ -118,10 +135,9 @@ export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFilt
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="flex items-center gap-1 transition-colors"
-            style={{ color: '#6b7280' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            <X className="w-4 h-4" />
+            <X style={{ width: '16px', height: '16px' }} />
             <span>Tozalash</span>
           </button>
         )}
