@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { BookOpen, Search, Package, TrendingUp, Star, Clock, Users, ArrowRight } from 'lucide-react';
+import { BookOpen, Search, Package, TrendingUp, Star, ArrowRight } from 'lucide-react';
 import { AnimatedSection } from '@/components/animations';
-import { useEffect, useState, useRef } from 'react';
+import { TopBooksSection } from '@/components/home';
+import { useEffect, useState } from 'react';
 
 function FloatingBook({ delay, left, size }: { delay: number; left: string; size: number }) {
   return (
@@ -21,46 +22,6 @@ function FloatingBook({ delay, left, size }: { delay: number; left: string; size
       }}
     />
   );
-}
-
-function CountUp({ end, duration = 2000, suffix = '' }: { end: number; duration?: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const [hasStarted, setHasStarted] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    let startTime: number;
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      setCount(Math.floor(progress * end));
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    requestAnimationFrame(animate);
-  }, [hasStarted, end, duration]);
-
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 }
 
 function FeatureCard({
@@ -123,32 +84,6 @@ function FeatureCard({
         </p>
       </div>
     </AnimatedSection>
-  );
-}
-
-function StatCard({ value, label, icon: Icon }: { value: React.ReactNode; label: string; icon: React.ElementType }) {
-  return (
-    <div style={{
-      textAlign: 'center',
-      padding: '24px',
-    }}>
-      <Icon style={{
-        width: '32px',
-        height: '32px',
-        color: '#0284c7',
-        margin: '0 auto 12px',
-        opacity: 0.8,
-      }} />
-      <div style={{
-        fontSize: '36px',
-        fontWeight: 700,
-        color: '#0284c7',
-        marginBottom: '4px',
-      }}>
-        {value}
-      </div>
-      <div style={{ color: '#6b7280', fontSize: '14px' }}>{label}</div>
-    </div>
   );
 }
 
@@ -312,41 +247,8 @@ export default function HomePage() {
         }} />
       </section>
 
-      {/* Stats section */}
-      <section style={{
-        backgroundColor: '#f8fafc',
-        padding: '40px 16px 80px',
-        marginTop: '-20px',
-      }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <AnimatedSection animation="fadeInUp">
-            <div style={{
-              backgroundColor: 'white',
-              borderRadius: '24px',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              border: '1px solid #f3f4f6',
-            }}>
-              <StatCard
-                value={<CountUp end={1000} suffix="+" />}
-                label="Kitoblar soni"
-                icon={BookOpen}
-              />
-              <StatCard
-                value={<CountUp end={30} />}
-                label="Daqiqada yangilanadi"
-                icon={Clock}
-              />
-              <StatCard
-                value={<CountUp end={500} suffix="+" />}
-                label="Kunlik tashrif"
-                icon={Users}
-              />
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* Top Books */}
+      <TopBooksSection />
 
       {/* Features */}
       <section style={{ backgroundColor: '#f8fafc', padding: '40px 16px 100px' }}>
