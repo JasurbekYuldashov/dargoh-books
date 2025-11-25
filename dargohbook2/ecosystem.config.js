@@ -2,10 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'dargohbook',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 8072',
-      cwd: '/Users/jasurbekyuldashov/Desktop/dargoh/dargohbook2',
-      instances: 1,
+      script: 'npm',
+      args: 'start -- -p 8072',
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
