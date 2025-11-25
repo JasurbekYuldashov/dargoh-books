@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   serverExternalPackages: ['typeorm', 'pg'],
   images: {
     remotePatterns: [
