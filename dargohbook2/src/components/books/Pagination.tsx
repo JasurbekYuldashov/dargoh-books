@@ -43,12 +43,26 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
     return pages;
   };
 
+  const getButtonStyle = (page: number | string) => {
+    if (page === currentPage) {
+      return {
+        backgroundColor: '#0284c7',
+        color: 'white',
+      };
+    }
+    return {
+      backgroundColor: 'transparent',
+      color: '#374151',
+    };
+  };
+
   return (
     <div className="flex items-center justify-center gap-1 mt-8">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ color: '#374151' }}
         aria-label="Oldingi sahifa"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -59,13 +73,8 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
           key={index}
           onClick={() => typeof page === 'number' && onPageChange(page)}
           disabled={page === '...'}
-          className={`min-w-[40px] h-10 rounded-lg transition-colors ${
-            page === currentPage
-              ? 'bg-primary-600 text-white'
-              : page === '...'
-              ? 'cursor-default'
-              : 'hover:bg-gray-100'
-          }`}
+          className="min-w-[40px] h-10 rounded-lg transition-colors"
+          style={getButtonStyle(page)}
         >
           {page}
         </button>
@@ -74,7 +83,8 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ color: '#374151' }}
         aria-label="Keyingi sahifa"
       >
         <ChevronRight className="w-5 h-5" />

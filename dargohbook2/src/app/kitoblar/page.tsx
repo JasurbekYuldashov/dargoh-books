@@ -16,28 +16,30 @@ export default function BooksPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f8fafc' }}>
       {/* Header */}
-      <div className="bg-white border-b">
+      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Kitoblar katalogi</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#111827' }}>
+            Kitoblar katalogi
+          </h1>
+          <p style={{ color: '#4b5563' }}>
             Mavjud kitoblar orasidan o'zingizga keraklisini toping
           </p>
 
           {/* Stats */}
           {stats && (
             <div className="flex flex-wrap gap-4 mt-4">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <BookOpen className="w-4 h-4 text-primary-600" />
+              <div className="flex items-center gap-2 text-sm" style={{ color: '#4b5563' }}>
+                <BookOpen className="w-4 h-4" style={{ color: '#0284c7' }} />
                 <span>Jami: {stats.totalBooks} ta kitob</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <CheckCircle className="w-4 h-4 text-green-600" />
+              <div className="flex items-center gap-2 text-sm" style={{ color: '#4b5563' }}>
+                <CheckCircle className="w-4 h-4" style={{ color: '#16a34a' }} />
                 <span>Mavjud: {stats.inStockBooks} ta</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Package className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-sm" style={{ color: '#4b5563' }}>
+                <Package className="w-4 h-4" style={{ color: '#9ca3af' }} />
                 <span>Narx: {formatPrice(stats.minPrice)} - {formatPrice(stats.maxPrice)}</span>
               </div>
             </div>
@@ -56,12 +58,12 @@ export default function BooksPage() {
 
         {/* Results info */}
         <div className="flex items-center justify-between mb-4">
-          <p className="text-gray-600">
+          <p style={{ color: '#4b5563' }}>
             {isLoading ? (
               'Yuklanmoqda...'
             ) : (
               <>
-                <span className="font-medium">{total}</span> ta kitob topildi
+                <span className="font-medium" style={{ color: '#111827' }}>{total}</span> ta kitob topildi
               </>
             )}
           </p>
@@ -76,7 +78,10 @@ export default function BooksPage() {
 
         {/* Error */}
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-4">
+          <div
+            className="p-4 rounded-lg mb-4"
+            style={{ backgroundColor: '#fef2f2', color: '#dc2626' }}
+          >
             {error}
           </div>
         )}

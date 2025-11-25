@@ -9,8 +9,10 @@ export function BookGrid({ books }: BookGridProps) {
   if (books.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">Kitoblar topilmadi</p>
-        <p className="text-gray-400 mt-2">Qidiruv so'zini o'zgartiring yoki filtrlarni tozalang</p>
+        <p className="text-lg" style={{ color: '#6b7280' }}>Kitoblar topilmadi</p>
+        <p className="mt-2" style={{ color: '#9ca3af' }}>
+          Qidiruv so'zini o'zgartiring yoki filtrlarni tozalang
+        </p>
       </div>
     );
   }
