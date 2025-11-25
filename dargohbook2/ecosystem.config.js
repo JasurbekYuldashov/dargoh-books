@@ -2,14 +2,11 @@ module.exports = {
   apps: [
     {
       name: 'dargohbook',
-      script: 'npm',
-      args: 'start -- -p 8072',
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '1G',
+      script: '.next/standalone/server.js',
       env: {
         NODE_ENV: 'production',
         PORT: 8072,
+        HOSTNAME: '0.0.0.0',
         DB_HOST: 'localhost',
         DB_PORT: 5437,
         DB_USERNAME: 'postgres',
@@ -21,6 +18,9 @@ module.exports = {
         BILLZ_PASSWORD: 'sardor0102',
         SYNC_INTERVAL: 30,
       },
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
     },
   ],
 };
