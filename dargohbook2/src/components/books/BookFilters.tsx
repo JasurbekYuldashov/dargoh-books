@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, X } from 'lucide-react';
+import { Search, X, Filter } from 'lucide-react';
 import { BookFilters as BookFiltersType } from '@/types';
 
 interface BookFiltersProps {
@@ -12,6 +12,10 @@ interface BookFiltersProps {
 export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFiltersProps) {
   const handleSearchChange = (value: string) => {
     onFilterChange({ ...filters, search: value, page: 1 });
+  };
+
+  const clearSearch = () => {
+    onFilterChange({ ...filters, search: '', page: 1 });
   };
 
   const handleInStockChange = (checked: boolean) => {
@@ -39,16 +43,18 @@ export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFilt
     });
   };
 
-  const hasActiveFilters = filters.search || filters.minPrice || filters.maxPrice || filters.inStock;
+  const hasActiveFilters = filters.minPrice || filters.maxPrice || filters.inStock;
 
-  const inputStyle: React.CSSProperties = {
-    padding: '10px 12px',
+  const inputBaseStyle: React.CSSProperties = {
+    height: '48px',
     backgroundColor: 'white',
     color: '#111827',
-    border: '1px solid #d1d5db',
-    borderRadius: '8px',
-    fontSize: '14px',
+    border: '1px solid #e5e7eb',
+    borderRadius: '12px',
+    fontSize: '15px',
     outline: 'none',
+    WebkitAppearance: 'none',
+    transition: 'all 0.2s ease',
   };
 
   return (
@@ -56,115 +62,196 @@ export function BookFilters({ filters, onFilterChange, maxPriceLimit }: BookFilt
       style={{
         backgroundColor: 'white',
         border: '1px solid #e5e7eb',
-        borderRadius: '12px',
-        padding: '16px',
+        borderRadius: '16px',
+        padding: '20px',
         marginBottom: '24px',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
       }}
     >
+      {/* Qidiruv */}
+      <div style={{ position: 'relative', width: '100%', marginBottom: '16px' }}>
+        <Search
+          style={{
+            position: 'absolute',
+            left: '16px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: '20px',
+            height: '20px',
+            color: '#9ca3af',
+            pointerEvents: 'none',
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Kitob nomi, barcode yoki SKU bo'yicha qidiring..."
+          value={filters.search || ''}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          style={{
+            ...inputBaseStyle,
+            width: '100%',
+            paddingLeft: '48px',
+            paddingRight: filters.search ? '48px' : '16px',
+            boxSizing: 'border-box',
+          }}
+        />
+        {filters.search && (
+          <button
+            onClick={clearSearch}
+            style={{
+              position: 'absolute',
+              right: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '32px',
+              height: '32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#f3f4f6',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              color: '#6b7280',
+              transition: 'all 0.2s ease',
+            }}
+            type="button"
+          >
+            <X style={{ width: '16px', height: '16px' }} />
+          </button>
+        )}
+      </div>
+
+      {/* Filtrlar */}
       <div
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          gap: '12px',
         }}
       >
-        {/* Qidiruv */}
-        <div style={{ position: 'relative', width: '100%' }}>
-          <Search
-            style={{
-              position: 'absolute',
-              left: '12px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '20px',
-              height: '20px',
-              color: '#9ca3af',
-              pointerEvents: 'none',
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Kitob nomi, barcode yoki SKU bo'yicha qidiring..."
-            value={filters.search || ''}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            style={{
-              ...inputStyle,
-              width: '100%',
-              paddingLeft: '44px',
-            }}
-          />
-        </div>
-
-        {/* Pastki qator */}
+        {/* Filtr label */}
         <div
           style={{
             display: 'flex',
-            flexWrap: 'wrap',
             alignItems: 'center',
-            gap: '16px',
+            gap: '6px',
+            color: '#6b7280',
+            fontSize: '14px',
+            fontWeight: 500,
           }}
         >
-          {/* Narx filtri */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <input
-              type="number"
-              placeholder="Min narx"
-              value={filters.minPrice || ''}
-              onChange={(e) => handleMinPriceChange(e.target.value)}
-              style={{ ...inputStyle, width: '110px' }}
-              min={0}
-            />
-            <span style={{ color: '#9ca3af' }}>-</span>
-            <input
-              type="number"
-              placeholder="Max narx"
-              value={filters.maxPrice || ''}
-              onChange={(e) => handleMaxPriceChange(e.target.value)}
-              style={{ ...inputStyle, width: '110px' }}
-              max={maxPriceLimit}
-            />
-          </div>
+          <Filter style={{ width: '16px', height: '16px' }} />
+          <span>Filtr:</span>
+        </div>
 
-          {/* Mavjudlik filtri */}
-          <label
+        {/* Narx filtri */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: '#f9fafb',
+            padding: '6px 12px',
+            borderRadius: '12px',
+          }}
+        >
+          <input
+            type="number"
+            placeholder="Min"
+            value={filters.minPrice || ''}
+            onChange={(e) => handleMinPriceChange(e.target.value)}
+            style={{
+              ...inputBaseStyle,
+              width: '100px',
+              height: '36px',
+              padding: '0 12px',
+              textAlign: 'center',
+              fontSize: '14px',
+            }}
+            min={0}
+          />
+          <span style={{ color: '#9ca3af', fontWeight: 500 }}>—</span>
+          <input
+            type="number"
+            placeholder="Max"
+            value={filters.maxPrice || ''}
+            onChange={(e) => handleMaxPriceChange(e.target.value)}
+            style={{
+              ...inputBaseStyle,
+              width: '100px',
+              height: '36px',
+              padding: '0 12px',
+              textAlign: 'center',
+              fontSize: '14px',
+            }}
+            max={maxPriceLimit}
+          />
+          <span style={{ color: '#6b7280', fontSize: '13px' }}>so'm</span>
+        </div>
+
+        {/* Mavjudlik filtri */}
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            backgroundColor: filters.inStock ? '#f0fdf4' : '#f9fafb',
+            padding: '8px 16px',
+            borderRadius: '12px',
+            border: filters.inStock ? '1px solid #86efac' : '1px solid transparent',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <input
+            type="checkbox"
+            checked={filters.inStock || false}
+            onChange={(e) => handleInStockChange(e.target.checked)}
+            style={{
+              width: '18px',
+              height: '18px',
+              accentColor: '#16a34a',
+              cursor: 'pointer',
+            }}
+          />
+          <span
+            style={{
+              color: filters.inStock ? '#16a34a' : '#374151',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}
+          >
+            Faqat mavjudlari
+          </span>
+        </label>
+
+        {/* Filtrlarni tozalash */}
+        {hasActiveFilters && (
+          <button
+            onClick={clearFilters}
+            type="button"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '6px',
+              color: '#dc2626',
+              background: '#fef2f2',
+              border: 'none',
               cursor: 'pointer',
-              whiteSpace: 'nowrap',
+              padding: '8px 16px',
+              fontSize: '14px',
+              fontWeight: 500,
+              borderRadius: '12px',
+              transition: 'all 0.2s ease',
             }}
           >
-            <input
-              type="checkbox"
-              checked={filters.inStock || false}
-              onChange={(e) => handleInStockChange(e.target.checked)}
-              style={{ width: '16px', height: '16px', accentColor: '#0284c7' }}
-            />
-            <span style={{ color: '#374151' }}>Faqat mavjudlari</span>
-          </label>
-
-          {/* Filtrlarni tozalash */}
-          {hasActiveFilters && (
-            <button
-              onClick={clearFilters}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                color: '#6b7280',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-              }}
-            >
-              <X style={{ width: '16px', height: '16px' }} />
-              <span>Tozalash</span>
-            </button>
-          )}
-        </div>
+            <X style={{ width: '16px', height: '16px' }} />
+            <span>Tozalash</span>
+          </button>
+        )}
       </div>
     </div>
   );

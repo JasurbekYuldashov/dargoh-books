@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   keywords: 'kitob, kitoblar, dargoh, uzbek kitoblar, kitob sotish',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -16,9 +23,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uz">
-      <body className="min-h-screen flex flex-col">
+      <body
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          overscrollBehavior: 'none',
+          backgroundColor: '#f8fafc',
+        }}
+      >
         <Header />
-        <main className="flex-1">{children}</main>
+        <main style={{ flex: 1 }}>{children}</main>
         <Footer />
       </body>
     </html>

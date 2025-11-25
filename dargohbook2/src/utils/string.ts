@@ -11,7 +11,18 @@ export function stripHtml(html: string): string {
 }
 
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('uz-UZ').format(price) + " so'm";
+  // Format number with spaces as thousand separators (1 000 000)
+  const formatted = Math.round(price)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return formatted + " so'm";
+}
+
+export function formatNumber(num: number): string {
+  // Format number with spaces as thousand separators
+  return Math.round(num)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 export function truncateText(text: string, maxLength: number): string {
