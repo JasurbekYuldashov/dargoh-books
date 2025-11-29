@@ -49,7 +49,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4" style={{ color: '#38bdf8' }} />
-                <span>+998 95 159 01 02</span>
+                <span>+998 77 449 50 50</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" style={{ color: '#38bdf8' }} />

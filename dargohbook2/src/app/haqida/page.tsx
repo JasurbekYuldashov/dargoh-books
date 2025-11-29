@@ -128,7 +128,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h3 className="font-semibold mb-1" style={{ color: '#111827' }}>Telefon</h3>
-                <p style={{ color: '#4b5563' }}>+998 95 159 01 02</p>
+                <p style={{ color: '#4b5563' }}>+998 77 449 50 50</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -152,7 +152,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h3 className="font-semibold mb-1" style={{ color: '#111827' }}>Ish vaqti</h3>
-                <p style={{ color: '#4b5563' }}>Har kuni 09:00 - 20:00</p>
+                <p style={{ color: '#4b5563' }}>Har kuni 08:00 - 20:00</p>
               </div>
             </div>
           </div>
