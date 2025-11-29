@@ -57,7 +57,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-4 h-4" style={{ color: '#38bdf8' }} />
-                <span>09:00 - 20:00</span>
+                <span>08:00 - 20:00</span>
               </li>
             </ul>
           </div>
